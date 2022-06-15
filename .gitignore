@@ -1,0 +1,6 @@
+*.pyc
+*.jpeg
+/flagged/
+*.jpg
+*.png
+*.gif
