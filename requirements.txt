@@ -1,0 +1,7 @@
+numpy
+pandas
+zhdate
+plotly-express
+plotly
+typing_extensions
+streamlit.components.v1
