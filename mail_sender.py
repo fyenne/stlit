@@ -26,11 +26,10 @@ def sendEmailwithFile(account, server,receivers):
     # server.quit()
     # time.sleep(2)
     
-    
 if __name__ == '__main__':
-    server = smtplib.SMTP("smtp.163.com", 220)
+    server = smtplib.SMTP("smtp.163.com", 465)
     server.starttls()
-    server.login('fyenneyenn@163.com', 'NOmoreuse7-') # "zwfbctzjcynjymdh" #"17740821016@DI"
+    server.login('fyenneyenn@163.com', 'UOYKKXZLJLWMQWZL') # "zwfbctzjcynjymdh" #"17740821016@DI"
     sendEmailwithFile('fyenneyenn@163.com', server = server, receivers='fyenne@hotmail.com')
     server.quit()
 
