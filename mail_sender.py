@@ -27,9 +27,10 @@ def sendEmailwithFile(account, server,receivers):
     # time.sleep(2)
     
 if __name__ == '__main__':
-    server = smtplib.SMTP("smtp.163.com", 465)
+    server = smtplib.SMTP("smtp.office365.com", 587)
     server.starttls()
-    server.login('fyenneyenn@163.com', 'UOYKKXZLJLWMQWZL') # "zwfbctzjcynjymdh" #"17740821016@DI"
-    sendEmailwithFile('fyenneyenn@163.com', server = server, receivers='fyenne@hotmail.com')
+    server.login('fyenneyenn@hotmail.com', 'NOmoreuse7-') 
+    print('connecting...')
+    sendEmailwithFile('fyenneyenn@hotmail.com', server = server, receivers='fyenne@hotmail.com')
     server.quit()
 
