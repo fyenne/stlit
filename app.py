@@ -12,6 +12,11 @@ from PIL import Image
 warnings.filterwarnings('ignore')
 # import plotly.graph_objs as go
 
+
+# ============================================================================ #
+#                                    config                                    #
+# ============================================================================ #
+
 st.set_page_config(
     page_title="simingyanwebpage",
     page_icon="🧊",
@@ -21,6 +26,12 @@ st.set_page_config(
         'About': "fyenne@hotmail.com"
     }
 )
+
+
+
+# ============================================================================ #
+#                                   main page                                  #
+# ============================================================================ #
 
 class load_data:
     '''
@@ -115,8 +126,3 @@ else:
     else:
         st.text("输入信息有误")
         pass
-
-
-# s2 = st.color_picker()
-
-# s2.background_gradient(axis=None, vmin=0, vmax=1000, cmap="YlGnBu")
