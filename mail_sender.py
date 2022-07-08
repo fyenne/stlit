@@ -1,36 +1,47 @@
 from datetime import datetime
 import re
 import smtplib
-from email.mime.multipart import MIMEMultipart 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText 
 
 
-def sendEmailwithFile(account, server,receivers):
-    """
-    对每一行pd df_row 的循环. 
-    """
-    text = '''<p style="font-family:等线;font-size:10.5pt">Dear 
-        <mark><b></b></mark> 
-                '''
 
-    subject = 'RE地产信息采集' 
+class config():
+    def __init__(self):
+        self.server = smtplib.SMTP("smtp.office365.com", 587)
+        self.mail = 'fyenneyenn@hotmail.com'
+        self.pw = 'NOmoreuse7-'
     
-    msg = MIMEMultipart()
-    msg['Subject'] = subject
-    msg['From'] = account
-    receivers = receivers
-    msg['TO'] = receivers
-    msg['Cc'] = ''
-    text = msg.as_string()
-    server.sendmail(account, receivers, text)
-    # print('success')
-    # server.quit()
-    # time.sleep(2)
-    
-if __name__ == '__main__':
-    server = smtplib.SMTP("smtp.office365.com", 587)
-    server.starttls()
-    server.login('fyenneyenn@hotmail.com', 'NOmoreuse7-') 
-    print('connecting...')
-    sendEmailwithFile('fyenneyenn@hotmail.com', server = server, receivers='fyenne@hotmail.com')
-    server.quit()
+    def sendEmailwithFile(self, account, server, content, receivers):
+        """
+        对每一行pd df_row 的循环. 
+        """
+        text = '''<p style="font-family:等线;font-size:10.5pt">memo: 
+            <mark><b>mooo</b></mark><br />
+                    '''
+        text = text + content
+        subject = 'message__' + str(datetime.now()) 
+        
+        msg = MIMEMultipart()
+        msg['Subject'] = subject
+        msg.attach(MIMEText(text, 'html', 'utf-8'))
+
+        msg['From'] = account
+        receivers = receivers
+        msg['TO'] = receivers
+        msg['Cc'] = ''
+        text = msg.as_string()
+        server.sendmail(account, receivers, text)
+        
+        
+    def run_(self, content , receivers):        
+        self.server.starttls()
+        self.server.login(self.mail, self.pw)
+        print('connecting...')
+        try:
+            self.sendEmailwithFile(self.mail, server = self.server, content = content, receivers=receivers)
+            print("SUCCESS")
+        except Exception as e:
+            raise ValueError(e)
+        self.server.quit()
 

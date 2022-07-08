@@ -27,8 +27,6 @@ st.set_page_config(
     }
 )
 
-
-
 # ============================================================================ #
 #                                   main page                                  #
 # ============================================================================ #
@@ -91,17 +89,13 @@ add_selectbox = st.sidebar.selectbox(
     "In which aspects would you like to know your future?",
     ("undefined", "money", "love")
 )
-# ----
-# selected_target = st.selectbox('测什么?', options = ['选择', '情路', '仕途'])
 
 if add_selectbox == 'undefined':
     print('')
     
     with st.container():
-        st.write("This is inside the container")
+        # st.write("This is inside the container")
         st.plotly_chart(load_data.plt1())
-    
-    st.write("This is outside the container")
 # -----
 else:
     '今日是农历: %s \
