@@ -33,16 +33,12 @@ class config():
         # ============================================================================ #
         #                                      file                                    #
         # ============================================================================ #
-        # with open(attachment, 'rb') as fp:
-        # img = MIMEImage(file)
-        # img.add_header('Content-ID', '<{}>'.format('a pic'))
-        # msg.attach(img)
         output_name1 = 'name'
-        part1 = MIMEBase('application', "octet-stream")
-        part1.set_payload(payload)
-        encoders.encode_base64(part1)
-        part1.add_header('Content-Disposition', 'attachment', filename=('utf-8', '', output_name1))
-        msg.attach(part1)
+        # part1 = MIMEBase('application', "octet-stream")
+        # part1.set_payload(payload)
+        # encoders.encode_base64(part1)
+        # part1.add_header('Content-Disposition', 'attachment', filename=('utf-8', '', output_name1))
+        # msg.attach(part1)
 
         # ============================================================================ #
         #                                    config                                    #
@@ -60,9 +56,30 @@ class config():
         self.server.login(self.mail, self.pw)
         print('connecting...')
         try:
-            self.sendEmailwithFile(self.mail, server = self.server, content = content, payload=payload, receivers=receivers)
-            print("SUCCESS")
+            print(
+                """
+                # ============================================================================ #
+                # ============================================================================ #
+                """
+                ,type(receivers)
+                
+            )
+            if type(receivers) is list:
+                for i in receivers:    
+                    self.sendEmailwithFile(self.mail, server = self.server, content = content, payload=payload, receivers=i)
+                    print("SUCCESS", i)
+                pass
+            elif type(receivers) is str:
+                self.sendEmailwithFile(self.mail, server = self.server, content = content, payload=payload, receivers=receivers)
+                print("SUCCESS", receivers)
+            else:
+                raise Exception("mothenfuicker")
         except Exception as e:
             raise ValueError(e)
         self.server.quit()
+        return 0
 
+
+
+a = config()
+a.run_('a', payload=None, receivers='fyenne@hotmail.com')

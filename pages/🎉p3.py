@@ -11,14 +11,25 @@ st.sidebar.markdown("# Page 3 🎉")
 
 
 
-# add_plus = st.text_input('add a mail address')
-# if add_plus is not None:
-#     select_list = ["fyenne@hotmail.com"].append(add_plus)
-#     st.write(select_list)
-# else:
-select_list = ["fyenne@hotmail.com"]
+add_plus = st.text_input('add a mail address')
+if add_plus is not None:
+    select_list = ["fyenne@hotmail.com"]+ [str(add_plus)]
+else:
+    select_list = ["fyenne@hotmail.com"]
+receiver = st.multiselect("to_whom", options = select_list)
+st.write(select_list)
 
-receiver = st.selectbox("to_whom", options = select_list)
+# try:
+#     receiver = re.findall('\w+\@\w+\.\w+', receiver)[0]
+#     st.write('email format ok')
+# except:
+#     st.write('wrong')
+#     pass
+# ============================================================================ #
+#                                 send_content                                 #
+# ============================================================================ #
+st.markdown('---')
+
 content  = st.text_input('content')
 file = st.file_uploader(label="file uploader", 
                         accept_multiple_files = True)
@@ -26,14 +37,14 @@ file = st.file_uploader(label="file uploader",
 
 
 bt = st.button('send')
-try:
-    receiver = re.findall('\w+\@\w+\.\w+', receiver)[0]
-    st.write('email format ok')
-except:
-    st.write('wrong')
-    pass
+
 if bt:
     a = config()
     print(receiver)
-    a.run_(content = str(content), payload=file, receivers = str(receiver))
-    # a.run_('aa', 'fyenne@hotmail.com')
+    res = a.run_(content = str(content), payload=file, receivers = receiver)
+    # a.run_("content", payload=None, receivers = 'fyenne@hotmail.com')
+    while res is None:
+        with st.spinner('Wait for it...'):
+            pass
+    
+    st.markdown('**succeed mail**') 
