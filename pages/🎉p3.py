@@ -16,7 +16,7 @@ if add_plus is not None:
     select_list = ["fyenne@hotmail.com"]+ [str(add_plus)]
 else:
     select_list = ["fyenne@hotmail.com"]
-receiver = st.multiselect("to_whom", options = select_list)
+receiver = st.multiselect("to_whom", options = select_list, default = 'fyenne@hotmail.com')
 st.write(select_list)
 
 # try:
