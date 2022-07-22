@@ -5,7 +5,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase
 from email import encoders
-
+from typing import List
+import streamlit as st
 
 class config():
     def __init__(self):
@@ -34,22 +35,31 @@ class config():
         #                                      file                                    #
         # ============================================================================ #
         # output_name1 = 'name'
-        part1 = MIMEBase('application', "octet-stream")
-        # part1.set_payload(payload)
-        part1.set_payload(open(payload, "rb").read())
-        encoders.encode_base64(part1)
-        try:
-            print(re.findall('\.\w+', payload.name))
-        except:
-            print(re.findall('?>=\.\w+', payload))
-            print(re.findall('\w+(?=\.\w+)', payload))
-            pass
-        output_name1 = re.findall('\w+(?=\.\w+)', payload)
-        part1.add_header('Content-Disposition', 'attachment', filename=('utf-8', '', payload))
+        def name_mutate(name):
+            return re.findall('(?<=\/)\w+\.\w+', str(name))
         
-        
-        
-        msg.attach(part1)
+        def attach_file(payload):    
+            part1 = MIMEBase('application', "octet-stream") 
+            part1.set_payload(open(payload, "rb").read())
+            encoders.encode_base64(part1) 
+            # try:
+            #     st.write(re.findall('\.\w+', payload), 'format of file')
+            # except:
+            #     st.write(re.findall('?>=\.\w+', payload))
+            #     st.write(re.findall('\w+(?=\.\w+)', payload))
+            #     pass 
+            part1.add_header(
+                'Content-Disposition',
+                'attachment', 
+                filename=('utf-8', '',  name_mutate(payload)[0]))
+            msg.attach(part1)
+            
+        if payload is List:
+            payloads = payload
+            for payload in payloads:
+                attach_file(payload)
+        else:
+            attach_file(payload)
 
         # ============================================================================ #
         #                                    config                                    #
@@ -65,7 +75,7 @@ class config():
     def run_(self, content, payload, receivers):        
         self.server.starttls()
         self.server.login(self.mail, self.pw)
-        print('connecting...')
+        st.write('connecting...')
         try:
             print(
                 """
@@ -78,12 +88,12 @@ class config():
             if type(receivers) is list:
                 for i in receivers:    
                     self.sendEmailwithFile(
-                        self.mail,
+                        account= self.mail,
                         server = self.server,
                         content = content,
                         payload=payload,
                         receivers=i)
-                    print("SUCCESS", i)
+                    st.write("SUCCESS to address", i)
                 pass
             
             elif type(receivers) is str:
@@ -93,9 +103,9 @@ class config():
                     content = content,
                     payload=payload,
                     receivers=receivers)
-                print("SUCCESS", receivers)
+                st.write("SUCCESS", receivers)
             else:
-                raise Exception("mothenfucker")
+                raise Exception("eeeeemmmmmmmmmmm")
         except Exception as e:
             raise ValueError(e)
         self.server.quit()
@@ -111,5 +121,8 @@ class config():
 # payload = r"C:\Users\dscshap3808\Documents\fapiao\202109.pdf"
 # a.sendEmailwithFile(account=a.mail, server=server, content=content, payload=payload, 
 #                     receivers='siming.yan@sf-dsc.com')
-# server.quit()
-# a.run_('a', payload=None, receivers='fyenne@hotmail.com')
+# server.quit() 
+# q(?=u) matches a q that is followed by a u,
+# (?<=a)b (positive lookbehind) matches the b (and only the b) in cab, 
+
+
