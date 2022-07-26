@@ -7,8 +7,17 @@ st.markdown("# Page 2 ❄️")
 st.sidebar.markdown("# Page 2 ❄️")
 
 
+with st.container():
+    with st.form("query form"):
+        submitted = st.form_submit_button("show history")
+        if submitted:
+            df = pd.read_csv('./dataup/backup.csv')
+            st.table(df)
+            
 
-
+placeholder = st.empty()
+with placeholder.container():
+    st.markdown('---')
 
 with st.form("input form"):
     message = st.text_input("user_name")
@@ -24,7 +33,7 @@ with st.form("input form"):
         df = pd.DataFrame(
                 {
                     'message': message,
-                    'slider_val':slider_val,
+                    'slider_val': slider_val,
                     'checkbox_val': checkbox_val,
                     'datetime': dt
                 }, 
@@ -38,22 +47,22 @@ with st.form("input form"):
         st.table(df)
         df.to_csv('./dataup/backup.csv', index = None, encoding = 'utf_8_sig')
 
-with st.container():
-    with st.form("query form"):
-        submitted = st.form_submit_button("show history")
-        if submitted:
-            df = pd.read_csv('./dataup/backup.csv')
-            st.table(df)
-            
-        
+
+placeholder = st.empty()
+with placeholder.container():
+    st.markdown('---')
+    
+
 with st.container():
     bt = st.button("truncate table?")
+    # for i in range(100):
+    #     st.progress(i)
     if bt:
         st.balloons()
         pd.DataFrame({
                     'message': 'message',
-                    'slider_val':'slider_val',
-                    'checkbox_val': 'checkbox_val',
+                    'slider_val': 0,
+                    'checkbox_val': True,
                     'datetime': dt
                 }, 
                 index=range(1)).\
