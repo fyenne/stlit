@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 <html>
   <body>
     <p>Before the script...</p>
@@ -6,9 +7,12 @@
     <script>
       alert("Hello, world!");
     </script>
-    <div id="app">
-      <button @click="count++">Count is: {{ count }}</button>
-    </div>
+
+    <script src="'js_script.js"></script>
+      <div id="app">
+        <button @click="count++">Count is: {{ count }}</button>
+      </div>
+    
     <p>...After the script.</p>
   </body>
 </html>

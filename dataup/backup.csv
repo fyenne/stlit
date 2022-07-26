@@ -1,11 +1,4 @@
-,message,slider_val
-0,asdad,0
-1,asdad,0
-2,asdad,0
-3,asdad,0
-4,asdad,0
-5,asdad,0
-6,asdad,0
-7,asdad,0
-8,asdad,0
-9,asdad,0
+﻿message,slider_val,checkbox_val,datetime
+abc,0,False,2022-07-26 14:23:30.884511
+koko,0,False,2022-07-26 14:23:30.884511
+askdoko,0,False,2022-07-26 14:23:30.884511
