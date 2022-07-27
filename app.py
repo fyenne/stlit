@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore')
 st.set_page_config(
     page_title="simingyanwebpage",
     page_icon="🧊",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
     menu_items={
         'About': "fyenne@hotmail.com"
@@ -31,6 +31,7 @@ st.set_page_config(
 #                                   main page                                  #
 # ============================================================================ #
 
+@st.cache  # 👈 Added this
 class load_data:
     '''
     read some data
